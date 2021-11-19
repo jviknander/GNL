@@ -14,22 +14,26 @@
 
 char *get_next_line(int fd)
 {
-	char		*read_line;
-	char		buf[BUFFER_SIZE + 1];
 	static char	*storage;
-	int			i; //valor que vai receber do read
+	char		*line;
+	char		buf[BUFFER_SIZE + 1];
+	int		r;
 
-	read_line = malloc(BUFFER_SIZE);
-	i = read(fd, buf, BUFFER_SIZE);
-	storage = read_line;
-	if (fd < 0 || fd > 1024)
+	line = NULL;
+	if (fd < 0 || fd > 1024 || BUFFER_SIZE < 0 || storage == NULL)
 		return (NULL);
-/*	while (i > 0)
-	{
-		storage = mall  
-			ft_strchr(read_line, '\n');
-		
-	}*/
-	return (read_line);	
+	buf = ft_strchr(storage, '\n');
+	
+	if (!buf ou storage)
+		buf = malloc(BUFFER_SIZE + 1); 
+		// se buf nao existir, terá que alocar memoria e 
+	
+	r = read(fd, &buf, BUFFER_SIZE);
+	if (r == -1)
+		return (NULL);
+	
+	while ()
+
+	return (line);	
 
 }
