@@ -5,9 +5,9 @@
 int main()
 {
 	int fd;
-	char *str;
-	size_t		buffer = 8;
-	ssize_t		ret;
+//	char *str;
+	size_t		buffer = 100;
+//	ssize_t		ret;
 /*
 
 //	printf("%zu", buffer);
