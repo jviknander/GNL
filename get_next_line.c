@@ -6,11 +6,48 @@
 /*   By: jde-melo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:14:38 by jde-melo          #+#    #+#             */
-/*   Updated: 2021/11/20 14:39:58 by jde-melo         ###   ########.fr       */
+/*   Updated: 2021/11/22 15:54:48 by jde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char			*sub;
+	size_t			size;
+	size_t			i;
+
+	sub = NULL;
+	if (s)
+	{
+		if (ft_strlen(s) <= len)
+			size = ft_strlen(s);
+		else
+			size = len;
+		if (start >= ft_strlen(s))
+			size = 0;
+		sub = malloc(size + 1);
+		if (!sub)
+			return (NULL);
+		i = 0;
+		while (i < size)
+			sub[i++] = s[start++];
+		sub[i] = '\0';
+	}
+	return (sub);
+}
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -32,20 +69,19 @@ char	*get_next_line(int fd)
 	char		buf[BUFFER_SIZE + 1];
 	int			r;
 
-	line = NULL;
-	
-	
-	if (fd < 0 || fd > 1024 || BUFFER_SIZE < 0 || storage == NULL)
+	line = NULL;	
+	if (fd > 1024 || BUFFER_SIZE < 0)
 		return (NULL);
-	
-	
-	r = read(fd, &buf, BUFFER_SIZE);
+	//buf = ft_strchr(storage, '\n');
+	r = read(fd, buf, BUFFER_SIZE);
 	if (r == -1)
-		return (NULL); //errno is set to indicate error
-	
+		return (NULL); 
 	while (!ft_strchr(storage, '\n') && r > 0)
 	{
-		line = malloc(sizeof(char *) * (BUFFER_SIZE + 1)); 
+		storage = malloc(sizeof(char *) * (BUFFER_SIZE )); 
+		line = ft_substr(storage, r, BUFFER_SIZE);
+		buf[r] = '\0';
+		printf("%s\n", line);
 	}
 	
 	

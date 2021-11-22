@@ -6,7 +6,7 @@ int main()
 {
 	int fd;
 //	char *str;
-	size_t		buffer = 100;
+//	size_t		buffer = 100;
 //	ssize_t		ret;
 /*
 
