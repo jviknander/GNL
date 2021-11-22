@@ -6,7 +6,7 @@
 /*   By: jde-melo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:14:38 by jde-melo          #+#    #+#             */
-/*   Updated: 2021/11/22 15:54:48 by jde-melo         ###   ########.fr       */
+/*   Updated: 2021/11/22 17:17:12 by jde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,14 +72,16 @@ char	*get_next_line(int fd)
 	line = NULL;	
 	if (fd > 1024 || BUFFER_SIZE < 0)
 		return (NULL);
-	//buf = ft_strchr(storage, '\n');
+	storage = malloc(sizeof(char *) * (BUFFER_SIZE + 1)); 
+	if (!storage)	
+		return (NULL);
 	r = read(fd, buf, BUFFER_SIZE);
 	if (r == -1)
 		return (NULL); 
+	buf = ft_strchr(storage, '\n');
 	while (!ft_strchr(storage, '\n') && r > 0)
 	{
-		storage = malloc(sizeof(char *) * (BUFFER_SIZE )); 
-		line = ft_substr(storage, r, BUFFER_SIZE);
+		line = ft_substr();
 		buf[r] = '\0';
 		printf("%s\n", line);
 	}
