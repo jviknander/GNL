@@ -5,7 +5,7 @@
 int main()
 {
 	int fd;
-//	char *str;
+	char *str;
 //	size_t		buffer = 100;
 //	ssize_t		ret;
 /*
@@ -19,9 +19,16 @@ int main()
 	fd = open("ricardo.txt", O_CREAT | O_RDWR);
 	read (fd, str, buffer);
 	printf("%s", str);
-*/
-
+	//printf("%s\n",get_next_line(fd));
+*/	
 	fd = open("ricardo.txt", O_CREAT | O_RDWR);
-	printf("%s\n",get_next_line(fd));
-
+	str = get_next_line(fd);
+	printf("%s\n", str);
+	str = get_next_line(fd);
+	printf("%s\n", str);
+	/*while (str)
+	{
+		printf("%s\n", str);
+		str = get_next_line(fd);
+	}*/
 }

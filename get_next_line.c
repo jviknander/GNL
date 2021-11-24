@@ -6,7 +6,7 @@
 /*   By: jde-melo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:14:38 by jde-melo          #+#    #+#             */
-/*   Updated: 2021/11/23 14:44:19 by jde-melo         ###   ########.fr       */
+/*   Updated: 2021/11/24 14:15:11 by jde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,44 @@ size_t	ft_strlen(const char *s)
 	return (i);
 }
 
+char	*ft_strdup(const char *s1)
+{
+	char	*m;
+	int		i;
+
+	m = malloc(ft_strlen(s1) + 1);
+	if (!m)
+		return (NULL);
+	i = -1;
+	while (s1[++i])
+		m[i] = s1[i];
+	m[i] = '\0';
+	return (m);
+}
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	char	*str;
+	int		size;
+	int		i;
+	int		j;
+
+	if (!s1 || !s2)
+		return (NULL);
+	size = ft_strlen(s1) + ft_strlen(s2);
+	str = malloc(size + 1);
+	if (!str)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (s1[j])
+		str[i++] = s1[j++];
+	j = 0;
+	while (s2[j])
+		str[i++] = s2[j++];
+	str[i] = '\0';
+	return (str);
+}
+/*
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char			*sub;
@@ -48,6 +86,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	return (sub);
 }
+*/
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -75,16 +114,21 @@ char	*get_next_line(int fd)
 	storage = malloc(sizeof(char *) * (BUFFER_SIZE + 1)); 
 	if (!storage)	
 		return (NULL);
-	r = read(fd, buf, BUFFER_SIZE);
-	if (r == -1)
-		return (NULL); 
-	while (!ft_strchr(storage, '\n') && r > 0)
+	//buf = ft_strchr(storage, '\n');
+	if(!line)
+	line =ft_strdup("oooo");
+	r = 1;
+	while (!ft_strchr(line, '\n') && r > 0)
 	{
-		
-		printf("linha1: %s\n", storage);	
+		r = read(fd, buf, BUFFER_SIZE);
+		if (r == -1)
+			return (NULL); 
 		buf[r] = '\0';
+		printf("linha1: %s\n", buf);	
+		line  = ft_strjoin(line, buf); 
+		//line = ft_strdup(buf);
 	}
-	line = ft_substr(buf, *storage, r);
+	printf("linha1: %s\n", line);	
 	return (line);	
 }
 
