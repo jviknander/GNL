@@ -8,8 +8,8 @@ int main()
 	char *str;
 //	size_t		buffer = 100;
 //	ssize_t		ret;
-/*
 
+/*
 //	printf("%zu", buffer);
 	fd = open("ricardo.txt", O_CREAT | O_RDWR);
 //	printf("%s\n", get_next_line(fd));
@@ -20,13 +20,21 @@ int main()
 	read (fd, str, buffer);
 	printf("%s", str);
 	//printf("%s\n",get_next_line(fd));
-*/	
+*/
 	fd = open("ricardo.txt", O_CREAT | O_RDWR);
 	str = get_next_line(fd);
-	printf("%s\n", str);
+	printf("linha: %s\n", str);
 	str = get_next_line(fd);
-	printf("%s\n", str);
-	/*while (str)
+	printf("linha 2 %s\n", str);
+	printf("linha 3 %s\n", get_next_line(fd));
+	printf("linha 4 %s\n", get_next_line(fd));
+	printf("linha 5 %s\n", get_next_line(fd));
+	printf("linha 6 %s\n", get_next_line(fd));
+	printf("linha 7 %s\n", get_next_line(fd));
+	printf("linha 8 %s\n", get_next_line(fd));
+	printf("linha 9 %s\n", get_next_line(fd));
+	/*
+	while (str)
 	{
 		printf("%s\n", str);
 		str = get_next_line(fd);
