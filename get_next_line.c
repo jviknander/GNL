@@ -6,13 +6,22 @@
 /*   By: jde-melo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:14:38 by jde-melo          #+#    #+#             */
-/*   Updated: 2021/11/26 05:28:45 by jde-melo         ###   ########.fr       */
+/*   Updated: 2021/11/26 09:49:13 by jde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
-int ft_strlen(char *str);
+
+int ft_strlen(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
 
 char	*ft_strjoin(char *s1, char *s2)
 {
@@ -85,16 +94,6 @@ char	*ft_strdup(char *str)
 	return (m);
 }
 
-
-int ft_strlen(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
 
 int ft_strchr(const char *str, int c)
 {
