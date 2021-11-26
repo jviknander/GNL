@@ -6,7 +6,7 @@
 /*   By: jde-melo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:19:35 by jde-melo          #+#    #+#             */
-/*   Updated: 2021/11/18 17:00:13 by jde-melo         ###   ########.fr       */
+/*   Updated: 2021/11/26 11:34:18 by jde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,5 +17,12 @@
 #include <stdlib.h>
 
 char *get_next_line(int fd);
+
+// additional functions from libft (with some minor changes)
+char	*ft_strjoin(char *s1, char *s2);
+char	*ft_substr(char *s, int start, int len);
+char	*ftstrdup(char *str);
+char	ft_strlen(char *str);
+char	ft_strchr(const char *str, int c);
 
 #endif
