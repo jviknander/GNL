@@ -30,9 +30,14 @@ char *get_next_line(int fd)
 
 */
 
-char	
+char	*buffer_to_line(char storage, char line)
+{
+	int	n;
 
-
+	n = ft_strchr(storage, '\n');
+	line = ft_substr(storage, 0, n);
+	storage = ft_substr(storage, n + 1, ft_strlen(storage) - n);
+}
 
 
 
@@ -42,13 +47,14 @@ char	*get_next_line(int fd)
 	char		*line;
 	char		buf[BUFFER_SIZE + 1];
 	int			r;
-	int 		until_n;
 
 
 	line = NULL;
 	if (fd > 1024 || BUFFER_SIZE < 0)
 		return (NULL) ;
 	r = read (fd, buf, BUFFER_SIZE);
+	if (r == -1)
+		return (NULL);
 	while (r > 0)
 	{
 		if (storage == NULL)
@@ -59,8 +65,6 @@ char	*get_next_line(int fd)
 				break;
 		r = read(fd, buf, BUFFER_SIZE);
 	}
-	until_n = ft_strchr(storage, '\n');
-	line = ft_substr(storage, 0, until_n);
-	storage = ft_substr(storage, until_n + 1, ft_strlen(storage) - until_n);
+	buffer_to_line(storage, line);
 	return (line);
-}}
+}
