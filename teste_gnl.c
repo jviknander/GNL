@@ -29,15 +29,31 @@ char *get_next_line(int fd)
 }	
 
 */
+#include "get_next_line.h"
+#include <stdio.h>
 
-char	*buffer_to_line(char storage, char line)
+char	*one_by_one(char **storage)
 {
-	int	n;
+	int		n;
+	char	*str;
+	char	*ret;
 
-	n = ft_strchr(storage, '\n');
-	line = ft_substr(storage, 0, n);
-	storage = ft_substr(storage, n + 1, ft_strlen(storage) - n);
+	//ret = NULL;
+	if (!storage)
+		return (0);
+	n = ft_strchr(*storage, '\n');
+	if (n >= 0)
+	{
+		str = ft_substr(*storage, 0, n);
+		ret = ft_substr(*storage, n + 1, ft_strlen(*storage) - n);
+		free (*storage);
+		*storage = str;
+	}
+	else 
+		return (NULL);
+	return (ret);
 }
+
 
 
 
@@ -48,23 +64,23 @@ char	*get_next_line(int fd)
 	char		buf[BUFFER_SIZE + 1];
 	int			r;
 
-
 	line = NULL;
-	if (fd > 1024 || BUFFER_SIZE < 0)
+	if (fd < 0 || fd > 1024 || BUFFER_SIZE < 0)
 		return (NULL) ;
 	r = read (fd, buf, BUFFER_SIZE);
-	if (r == -1)
-		return (NULL);
+	//if (r == -1)
+	//	return (NULL);
 	while (r > 0)
 	{
-		if (storage == NULL)
-			 storage = ft_strdup(""); // caso nao tenha nada, manda nada para a alocacao do storage
 		buf[r] = '\0';
-		storage = ft_strjoin(storage, buf);
+		if (storage == NULL)
+			 storage = ft_strdup("");
+		line = ft_strjoin(storage, buf);
+		free (storage);
+		storage = line;
 		if (ft_strchr(buf, '\n') != -1)
 				break;
 		r = read(fd, buf, BUFFER_SIZE);
 	}
-	buffer_to_line(storage, line);
-	return (line);
+	return (one_by_one(&storage));
 }
