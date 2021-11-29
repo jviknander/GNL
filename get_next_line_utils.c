@@ -6,15 +6,15 @@
 /*   By: jde-melo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/28 17:10:38 by jde-melo          #+#    #+#             */
-/*   Updated: 2021/11/28 17:13:38 by jde-melo         ###   ########.fr       */
+/*   Updated: 2021/11/29 21:35:17 by jde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int ft_strlen(char *str)
+int	ft_strlen(char *str)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
@@ -46,11 +46,11 @@ char	*ft_strjoin(char *s1, char *s2)
 	return (str);
 }
 
-char *ft_substr(char *s, int start, int len)
+char	*ft_substr(char *s, int start, int len)
 {
-	char			*sub;
-	int			size;
-	int			i;
+	char	*sub;
+	int		size;
+	int		i;
 
 	sub = NULL;
 	if (s)
@@ -74,10 +74,9 @@ char *ft_substr(char *s, int start, int len)
 
 char	*ft_strdup(char *str)
 {
-	char *m;
-	int	size;
-	int i;
-
+	char	*m;
+	int		size;
+	int		i;
 
 	size = ft_strlen(str);
 	m = malloc(sizeof(char) * size + 1);
@@ -93,15 +92,14 @@ char	*ft_strdup(char *str)
 	return (m);
 }
 
-
-int ft_strchr(const char *str, int c)
+int	ft_strchr(const char *str, int c)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] ==  (char )c)
+		if (str[i] == (char )c)
 			return (i);
 		i++;
 	}
