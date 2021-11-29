@@ -38,24 +38,17 @@ char	*one_by_one(char **storage)
 	char	*str;
 	char	*ret;
 
-	//ret = NULL;
-	if (!storage)
-		return (0);
 	n = ft_strchr(*storage, '\n');
 	if (n >= 0)
 	{
-		str = ft_substr(*storage, 0, n);
-		ret = ft_substr(*storage, n + 1, ft_strlen(*storage) - n);
+		ret = ft_substr(*storage, 0, n);
+		str = ft_substr(*storage, n + 1, ft_strlen(*storage) - n);
 		free (*storage);
 		*storage = str;
 	}
-	else 
-		return (NULL);
+	else
 	return (ret);
 }
-
-
-
 
 char	*get_next_line(int fd)
 {
@@ -64,8 +57,8 @@ char	*get_next_line(int fd)
 	char		buf[BUFFER_SIZE + 1];
 	int			r;
 
-	line = NULL;
-	if (fd < 0 || fd > 1024 || BUFFER_SIZE < 0)
+//	line = NULL;
+	if (fd > 1024 || BUFFER_SIZE < 0)
 		return (NULL) ;
 	r = read (fd, buf, BUFFER_SIZE);
 	//if (r == -1)
@@ -78,7 +71,9 @@ char	*get_next_line(int fd)
 		line = ft_strjoin(storage, buf);
 		free (storage);
 		storage = line;
-		if (ft_strchr(buf, '\n') != -1)
+		//storage = ft_strdup(line);
+		//free(line);
+		if (ft_strchr(storage, '\n') != -1)
 				break;
 		r = read(fd, buf, BUFFER_SIZE);
 	}

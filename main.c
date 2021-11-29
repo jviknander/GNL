@@ -23,7 +23,7 @@ int main()
 */
 	fd = open("ricardo.txt", O_CREAT | O_RDWR);
 	str = get_next_line(fd);
-	printf("linha: %s\n", str);
+	printf("linha 1 %s\n", str);
 	str = get_next_line(fd);
 	printf("linha 2 %s\n", str);
 	printf("linha 3 %s\n", get_next_line(fd));
