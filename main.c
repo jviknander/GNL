@@ -23,7 +23,7 @@ int main()
 */
 	fd = open("ricardo.txt", O_CREAT | O_RDWR);
 	str = get_next_line(fd);
-	printf("linha 1 %s\n", str);
+/*	printf("linha 1 %s\n", str);
 	str = get_next_line(fd);
 	printf("linha 2 %s\n", str);
 	printf("linha 3 %s\n", get_next_line(fd));
@@ -33,10 +33,12 @@ int main()
 	printf("linha 7 %s\n", get_next_line(fd));
 	printf("linha 8 %s\n", get_next_line(fd));
 	printf("linha 9 %s\n", get_next_line(fd));
-	/*
+*/
+
 	while (str)
 	{
 		printf("%s\n", str);
+		free(str);
 		str = get_next_line(fd);
-	}*/
+	}
 }
