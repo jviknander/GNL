@@ -6,7 +6,7 @@
 /*   By: jde-melo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 21:24:44 by jde-melo          #+#    #+#             */
-/*   Updated: 2021/11/30 17:16:32 by jde-melo         ###   ########.fr       */
+/*   Updated: 2021/12/04 13:24:12 by jde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,22 +45,22 @@ char *get_next_line(int fd)
 #include "get_next_line.h"
 #include <stdio.h>
 
-char	*one_by_one(char **storage)
+char	*one_by_one(char **storage[fd])
 {
 	int		n;
 	char	*str;
 	char	*ret;
 
-	if (!*storage)
+	if (!*storage[fd])
 		return (0);
-	n = ft_strchr(*storage, '\n');
+	n = ft_strchr(*storage[fd], '\n');
 	if (n >= 0)
 	{
-		ret = ft_substr(*storage, 0, n + 1);
-		str = ft_substr(*storage, n + 1, ft_strlen(*storage) - n);
-		free (*storage);
-		*storage = str;
-		if (**storage != '\0')
+		ret = ft_substr(*storage[fd], 0, n + 1);
+		str = ft_substr(*storage[fd], n + 1, ft_strlen(*storage[fd]) - n);
+		free (*storage[fd]);
+		*storage[fd] = str;
+		if (**storage[fd] != '\0')
 			return (ret);
 	}
 	else
@@ -80,19 +80,19 @@ char	*get_next_line(int fd)
 	if (fd < 0 || fd > 1024 || BUFFER_SIZE < 0)
 		return (NULL);
 	r = read (fd, buf, BUFFER_SIZE);
-	//if (r == -1)
-	//	return (NULL);
+	if (r == -1)
+		return (NULL);
 	while (r != -1 && r != 0)
 	{
 		buf[r] = '\0';
-		if (storage == NULL)
-			storage = ft_strdup("");
-		line = ft_strjoin(storage, buf);
-		free (storage);
-		storage = line;
-		if (ft_strchr(storage, '\n') != -1)
+		if (storage[fd] == NULL)
+			storage[fd] = ft_strdup("");
+		line = ft_strjoin(storage[fd], buf);
+		free (storage[fd]);
+		storage[fd] = line;
+		if (ft_strchr(storage[fd], '\n') != -1)
 			break ;
 		r = read(fd, buf, BUFFER_SIZE);
 	}
-	return (one_by_one(&storage));
+	return (one_by_one(&storage[fd]));
 }
