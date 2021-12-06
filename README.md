@@ -1,4 +1,4 @@
-# My two versions of the second project at 42 😗 *get_next_line*
+# My two versions of the second project at 42 😗👌 *get_next_line*
 
 
 ### `v1`
