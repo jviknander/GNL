@@ -6,36 +6,42 @@
 /*   By: jde-melo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 16:19:11 by jde-melo          #+#    #+#             */
-/*   Updated: 2021/12/04 13:31:48 by jde-melo         ###   ########.fr       */
+/*   Updated: 2021/12/06 13:03:14 by jde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+char	*storage_account(char storage)
+{
+	int	i;
+
+	i = 0;
+
+}
+
 char	*god_save_the_line(char *storage)
 {
 	char	*ret;
-	char	*line;
+	char	*str;
 	int		i;
 
-	line = NULL;	
 	i = 0;
-	while (storage[i] != '\n')
+	ret = NULL;
+	while (storage[i] && storage[i] != '\n')
 		i++;
 	if (storage[i] == '\n')
 	{
-		line = ft_substr(storage, 0, i);
-		ret = ft_substr(storage, i + 1, ft_strlen(storage));	
+		str = ft_substr(storage, 0, i);
+		ret = ft_strdup(&storage[i + 1]);	
 		free (storage);
 		storage = ret;
 	}
 	else
-	{
-		ret = ft_strdup(storage);
-		free(storage);
-		storage = NULL;
-	}
-	return (line);
+		str = ft_strdup(storage);
+	free(storage);
+	storage = NULL;
+	return (ret);
 }
 
 char	*reading_is_good(int fd, char *storage)
@@ -50,6 +56,8 @@ char	*reading_is_good(int fd, char *storage)
 		if (storage == NULL)
 			storage = ft_strdup("");
 		storage = ft_strjoin(storage, buf);
+		if (ft_strchr(storage, '\n' != -1))
+			break ;
 		r = read(fd, buf, BUFFER_SIZE);
 	}
 	return (storage);
@@ -64,5 +72,6 @@ char	*get_next_line(int fd)
 		return (NULL);
 	storage = reading_is_good(fd, storage);
 	line = god_save_the_line(storage);
+	storage = storage_account(storage); 
 	return (line);
 }
