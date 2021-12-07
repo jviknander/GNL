@@ -8,11 +8,8 @@ int main()
 	char	*str;
 
 	fd = open("file.txt", O_RDWR);
-	str = get_next_line(fd);
-	while (str)
+	while ((str = get_next_line(fd)))
 	{
 		printf("%s\n", str);
-		free(str);
-		str = get_next_line(fd);
 	}
 }

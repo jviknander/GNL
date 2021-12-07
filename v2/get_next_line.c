@@ -6,7 +6,7 @@
 /*   By: jde-melo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 16:19:11 by jde-melo          #+#    #+#             */
-/*   Updated: 2021/12/07 17:38:47 by jde-melo         ###   ########.fr       */
+/*   Updated: 2021/12/07 20:24:08 by jde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,35 +68,47 @@ char	*lk(char *storage)
 	storage = NULL;
 	return (str);
 }
-
+/*
 char	*reading_is_good(int fd, char *storage)
 {
 	char	buf[BUFFER_SIZE + 1];
 	int		r;
-	char	*temp;
-
+	//char	*temp;
+	
 	r = read(fd, buf, BUFFER_SIZE);
-	while (r != -1 && r != 0)
+	while (!(ft_strchr(storage, '\n') != -1) && r > 0)
 	{
 		buf[r] = '\0';
-		if (storage == NULL)
-			storage = ft_strdup("");
-		temp = ft_strjoin(storage, buf);
+		//if (storage == NULL)
+		//	storage = ft_strdup("");
+		storage = ft_strjoin(storage, buf);
 		free (storage);
-		storage = temp;
-		if (ft_strchr(storage, '\n') != -1)
-			break ;
+		//storage = temp;
+		//if (ft_strchr(storage, '\n') != -1)
+		//	break ;
 		r = read(fd, buf, BUFFER_SIZE);
 	}
-	return (temp);
+	return (storage);
 }
+*/
 
 char	*get_next_line(int fd)
 {
 	static char	*storage;
+	char		buf[BUFFER_SIZE + 1];
+	int			r;
 
+	storage = malloc(sizeof(char));
+	if (storage == NULL)
+		storage = ft_strdup("");
 	if (fd > 1024 || fd < 0 || BUFFER_SIZE < 0)
 		return (NULL);
-	storage = reading_is_good(fd, storage);
+	r = 1;
+	while (!ft_strchr(storage, '\n') && r > 0)
+	{
+		r = read(fd, buf, BUFFER_SIZE);
+		buf[0] = '\0';
+		storage = ft_strjoin(storage, buf);
+	}
 	return (lk(storage));
 }
