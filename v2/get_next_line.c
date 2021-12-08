@@ -18,26 +18,25 @@ char	*get_line(char *storage)
 	char	*ret;
 
 	i = 0;
-	while (storage[i] && storage[i] != '\n' &&  storage[i] != '\0')
+	while (storage[i] != '\n' &&  storage[i] != '\0')
 		i++;
 	ret = ft_substr(storage, 0, ft_strlen(storage) - i);
 	free(storage);
+	storage = NULL;
 	return (ret);
 }
 
 char	*get_next_line(int fd)
 {
 	static char	*storage;
-	char		*line;
 	char		buf[BUFFER_SIZE + 1];
 	int			r;
 	
 	if (fd < 0 || fd > 1024 || BUFFER_SIZE < 0)
 		return (NULL);
-	r = 1;
-	line = NULL;
 	if (storage && ft_strchr(storage, '\n'))
 		return (get_line(storage));
+	r = 1;
 	while (r > 0)
 	{
 		r = read(fd, buf, BUFFER_SIZE);
@@ -46,9 +45,5 @@ char	*get_next_line(int fd)
 		if (ft_strchr(storage, '\n'))
 			break;
 	}
-	if (storage)
-		line = ft_strdup(storage);
-	free (storage);
-	storage = NULL;
 	return (get_line(storage));
 }
