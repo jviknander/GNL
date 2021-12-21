@@ -6,7 +6,7 @@
 /*   By: jde-melo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 12:21:16 by jde-melo          #+#    #+#             */
-/*   Updated: 2021/12/04 12:27:29 by jde-melo         ###   ########.fr       */
+/*   Updated: 2021/12/21 17:56:29 by jde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,6 @@ char	*ft_strjoin(char *s1, char *s2);
 char	*ft_substr(char *s, int start, int len);
 char	*ft_strdup(char *str);
 int		ft_strlen(char *str);
-int		ft_strchr(const char *str, int c);
+int		ft_strchr(char *str, int c);
 
 #endif

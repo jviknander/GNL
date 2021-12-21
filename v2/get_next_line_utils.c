@@ -6,7 +6,7 @@
 /*   By: jde-melo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 12:27:45 by jde-melo          #+#    #+#             */
-/*   Updated: 2021/12/09 19:21:46 by jde-melo         ###   ########.fr       */
+/*   Updated: 2021/12/21 17:56:19 by jde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*ft_strdup(char *str)
 	return (m);
 }
 
-int	ft_strchr(const char *str, int c)
+int	ft_strchr(char *str, int c)
 {
 	int	i;
 
