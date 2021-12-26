@@ -6,12 +6,13 @@
 /*   By: jde-melo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 16:19:11 by jde-melo          #+#    #+#             */
-/*   Updated: 2021/12/26 16:22:50 by jde-melo         ###   ########.fr       */
+/*   Updated: 2021/12/26 21:15:32 by jde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-void	free_null(char **ptr)
+/*
+void	free_this(char **ptr)
 {
 	if (*ptr != NULL)
 	{
@@ -19,69 +20,71 @@ void	free_null(char **ptr)
 		ptr = NULL;
 	}
 }
-
-char	*join_line(int nl_position, char **buffer)
+*/
+char	*come_together(int nl_position, char **storage)
 {
-	char	*res;
+	char	*ret;
 	char	*tmp;
 
 	tmp = NULL;
 	if (nl_position <= 0 )
 	{
-		if (**buffer == '\0')
+		if (**storage == '\0')
 		{
-			free(*buffer);
-			*buffer = NULL;
+			free(*storage);
+			*storage = NULL;
 			return (NULL);
 		}
-		res = *buffer;
-		*buffer = NULL;
-		return (res);
+		ret = *storage;
+		*storage = NULL;
+		return (ret);
 	}
-	tmp = ft_substr(*buffer, nl_position, BUFFER_SIZE);
-	res = *buffer;
-	res[nl_position] = 0;
-	*buffer = tmp;
-	return (res);
+	tmp = ft_substr(*storage, nl_position, BUFFER_SIZE);
+	ret = *storage;
+	ret[nl_position] = 0;
+	*storage = tmp;
+	return (ret);
 }
 
-char	*read_this(int fd, char **buffer, char *read_return)
+char	*read_this(int fd, char **storage, char *buf)
 {
 	int		r;;
 	char	*tmp;
 	char	*nl;
 
-	nl = ft_strchr(*buffer, '\n');
+	nl = ft_strchr(*storage, '\n');
 	tmp = NULL;
-	r  = 0;
-	while (nl == NULL)
+	r  = 1;
+	while (!nl && r > 0)
 	{
-		r = read(fd, read_return, BUFFER_SIZE);
+		r = read(fd, buf, BUFFER_SIZE);
 		if (r <= 0)
-			return (join_line(r, buffer));
-		read_return[r] = 0;
-		tmp = ft_strjoin(*buffer, read_return);
-		free_null(buffer);
-		*buffer = tmp;
-		nl = ft_strchr(*buffer, '\n');
+			return (come_together(r, storage));
+		buf[r] = 0;
+		tmp = ft_strjoin(*storage, buf);
+		free(*storage);
+		*storage = 0;
+		*storage = tmp;
+		nl = ft_strchr(*storage, '\n');
 	}
-	return (join_line(nl - *buffer + 1, buffer));
+	return (come_together(nl - *storage + 1, storage));
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
-	char		*read_return;
-	char		*res;
+	static char	*storage;
+	char		*buffer;
+	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 1024)
 		return (NULL);
-	read_return = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
-	if (read_return == NULL)
+	buffer = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (buffer == NULL)
 		return (NULL);
-	if (!buffer)
-		buffer = ft_strdup("");
-	res = read_this(fd, &buffer, read_return);
-	free_null(&read_return);
-	return (res);
+	if (!storage)
+		storage = ft_strdup("");
+	line = read_this(fd, &storage, buffer);
+	free(buffer);
+	buffer = 0;
+	return (line);
 }
