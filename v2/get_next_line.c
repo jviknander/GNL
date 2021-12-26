@@ -6,58 +6,82 @@
 /*   By: jde-melo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 16:19:11 by jde-melo          #+#    #+#             */
-/*   Updated: 2021/12/21 18:40:09 by jde-melo         ###   ########.fr       */
+/*   Updated: 2021/12/26 16:22:50 by jde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-char	*read_line(char **storage)
+void	free_null(char **ptr)
 {
-	int		n;
-	char	*str;
-	char	*ret;
-
-	if (!*storage || **storage == '\0')
-		return (0);
-	n = ft_strchr(*storage, '\n');
-	if (n >= 0)
+	if (*ptr != NULL)
 	{
-		ret = ft_substr(*storage, 0, n + 1);
-		str = ft_substr(*storage, n + 1, ft_strlen(*storage));
-		free (*storage);
-		*storage = str;
-		if (**storage != '\0')
-			return (ret);
+		free(*ptr);
+		ptr = NULL;
 	}
-	else
-		ret = ft_strdup(*storage);
-	free(*storage);
-	*storage = 0;
-	return (ret);
+}
+
+char	*join_line(int nl_position, char **buffer)
+{
+	char	*res;
+	char	*tmp;
+
+	tmp = NULL;
+	if (nl_position <= 0 )
+	{
+		if (**buffer == '\0')
+		{
+			free(*buffer);
+			*buffer = NULL;
+			return (NULL);
+		}
+		res = *buffer;
+		*buffer = NULL;
+		return (res);
+	}
+	tmp = ft_substr(*buffer, nl_position, BUFFER_SIZE);
+	res = *buffer;
+	res[nl_position] = 0;
+	*buffer = tmp;
+	return (res);
+}
+
+char	*read_this(int fd, char **buffer, char *read_return)
+{
+	int		r;;
+	char	*tmp;
+	char	*nl;
+
+	nl = ft_strchr(*buffer, '\n');
+	tmp = NULL;
+	r  = 0;
+	while (nl == NULL)
+	{
+		r = read(fd, read_return, BUFFER_SIZE);
+		if (r <= 0)
+			return (join_line(r, buffer));
+		read_return[r] = 0;
+		tmp = ft_strjoin(*buffer, read_return);
+		free_null(buffer);
+		*buffer = tmp;
+		nl = ft_strchr(*buffer, '\n');
+	}
+	return (join_line(nl - *buffer + 1, buffer));
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*storage;
-	char		*temp;
-	char		buf[BUFFER_SIZE + 1];
-	int			r;
+	static char	*buffer;
+	char		*read_return;
+	char		*res;
 
-	if (fd < 0 || fd > 1024 || BUFFER_SIZE < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 1024)
 		return (NULL);
-	r = 1;
-	while (r >  0)
-	{
-		r = read(fd, buf, BUFFER_SIZE);
-		buf[r] = '\0';
-		if (storage == NULL)
-			storage = ft_strdup("");
-		temp = ft_strjoin(storage, buf);
-		free (storage);
-		storage = temp;
-		if (ft_strchr(storage, '\n') != -1)
-			break ;
-	}
-	return (read_line(&storage));
+	read_return = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (read_return == NULL)
+		return (NULL);
+	if (!buffer)
+		buffer = ft_strdup("");
+	res = read_this(fd, &buffer, read_return);
+	free_null(&read_return);
+	return (res);
 }
