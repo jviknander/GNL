@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jde-melo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/28 17:10:38 by jde-melo          #+#    #+#             */
-/*   Updated: 2021/12/27 14:45:54 by jde-melo         ###   ########.fr       */
+/*   Created: 2021/12/27 14:37:25 by jde-melo          #+#    #+#             */
+/*   Updated: 2021/12/27 14:57:58 by jde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 int	ft_strlen(char *str)
 {
@@ -99,7 +99,7 @@ int	ft_strchr(char *str, int c)
 	i = 0;
 	while (str[i])
 	{
-		if (str[i] == (char )c)
+		if (str[i] == (char)c)
 			return (i);
 		i++;
 	}

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jde-melo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/29 21:24:44 by jde-melo          #+#    #+#             */
-/*   Updated: 2021/12/27 14:52:12 by jde-melo         ###   ########.fr       */
+/*   Created: 2021/12/27 14:33:59 by jde-melo          #+#    #+#             */
+/*   Updated: 2021/12/27 14:46:44 by jde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*one_by_one(char **storage)
 {
@@ -39,7 +39,7 @@ char	*one_by_one(char **storage)
 
 char	*get_next_line(int fd)
 {
-	static char	*storage;
+	static char	*storage[1024];
 	char		*line;
 	char		buf[BUFFER_SIZE + 1];
 	int			r;
@@ -52,32 +52,14 @@ char	*get_next_line(int fd)
 	while (r != -1 && r != 0)
 	{
 		buf[r] = '\0';
-		if (storage == NULL)
-			storage = ft_strdup("");
-		line = ft_strjoin(storage, buf);
-		free (storage);
-		storage = line;
-		if (ft_strchr(storage, '\n') != -1)
+		if (storage[fd] == NULL)
+			storage[fd] = ft_strdup("");
+		line = ft_strjoin(storage[fd], buf);
+		free (storage[fd]);
+		storage[fd] = line;
+		if (ft_strchr(storage[fd], '\n') != -1)
 			break ;
 		r = read(fd, buf, BUFFER_SIZE);
 	}
-	return (one_by_one(&storage));
+	return (one_by_one(&storage[fd]));
 }
-/*
- *
-// Alocar memoria para o storage
-//	Se o storage for igual a NULL, aloca se memoria
-//	if (storage == NULL)
-//	storage = ft_strdup("");
-//	buf[ret] = '\0';
-		// Meter coisas para o storage
-		// Ver se o storage ou buf tem \n
-		// Quando o buf tiver o \n, break
-		// read(fd, buf, 42);
-// Quando e que ele sai do loop?
-// Nao tiver nada para ler (storage tem um '\0')
-// Quando encontra o '\n'
-// tamanho da string
-// O conteudo -> storage (Que vai ter o \n)
-*
-*/	
