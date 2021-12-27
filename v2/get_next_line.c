@@ -6,7 +6,7 @@
 /*   By: jde-melo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/30 16:19:11 by jde-melo          #+#    #+#             */
-/*   Updated: 2021/12/26 21:15:32 by jde-melo         ###   ########.fr       */
+/*   Updated: 2021/12/27 14:10:58 by jde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,13 +21,13 @@ void	free_this(char **ptr)
 	}
 }
 */
-char	*come_together(int nl_position, char **storage)
+char	*come_together(int n, char **storage)
 {
 	char	*ret;
 	char	*tmp;
 
 	tmp = NULL;
-	if (nl_position <= 0 )
+	if (n <= 0)
 	{
 		if (**storage == '\0')
 		{
@@ -39,31 +39,31 @@ char	*come_together(int nl_position, char **storage)
 		*storage = NULL;
 		return (ret);
 	}
-	tmp = ft_substr(*storage, nl_position, BUFFER_SIZE);
+	tmp = ft_substr(*storage, n, BUFFER_SIZE);
 	ret = *storage;
-	ret[nl_position] = 0;
+	ret[n] = '\0';
 	*storage = tmp;
 	return (ret);
 }
 
 char	*read_this(int fd, char **storage, char *buf)
 {
-	int		r;;
+	int		r;
 	char	*tmp;
 	char	*nl;
 
-	nl = ft_strchr(*storage, '\n');
 	tmp = NULL;
-	r  = 1;
+	r = 1;
+	nl = ft_strchr(*storage, '\n');
 	while (!nl && r > 0)
 	{
 		r = read(fd, buf, BUFFER_SIZE);
 		if (r <= 0)
 			return (come_together(r, storage));
-		buf[r] = 0;
+		buf[r] = '\0';
 		tmp = ft_strjoin(*storage, buf);
 		free(*storage);
-		*storage = 0;
+		*storage = NULL;
 		*storage = tmp;
 		nl = ft_strchr(*storage, '\n');
 	}
@@ -85,6 +85,6 @@ char	*get_next_line(int fd)
 		storage = ft_strdup("");
 	line = read_this(fd, &storage, buffer);
 	free(buffer);
-	buffer = 0;
+	buffer = NULL;
 	return (line);
 }

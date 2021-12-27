@@ -1,19 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jde-melo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/04 12:21:16 by jde-melo          #+#    #+#             */
-/*   Updated: 2021/12/27 14:23:53 by jde-melo         ###   ########.fr       */
+/*   Created: 2021/12/27 14:05:00 by jde-melo          #+#    #+#             */
+/*   Updated: 2021/12/27 14:23:47 by jde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 # include <unistd.h>
 # include <stdlib.h>
+# include <stdio.h>
 # include <fcntl.h>
 
 # ifndef BUFFER_SIZE
@@ -26,4 +27,5 @@ char	*ft_substr(char *s, int start, int len);
 char	*ft_strdup(char *str);
 int		ft_strlen(char *str);
 char	*ft_strchr(char *str, int c);
+
 #endif

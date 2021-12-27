@@ -6,12 +6,11 @@
 /*   By: jde-melo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 12:27:45 by jde-melo          #+#    #+#             */
-/*   Updated: 2021/12/26 20:54:04 by jde-melo         ###   ########.fr       */
+/*   Updated: 2021/12/27 14:20:06 by jde-melo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 char	*ft_substr(char *s, int start, int len)
 {
@@ -72,22 +71,7 @@ char	*ft_strchr(char *str, int c)
 	}
 	return ((char *)temp);
 }
-/*
 
-int	ft_strchr(char *str, int c)
-{
-	int	i;
-	
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == (char )c)
-			return (i);
-		i++;
-	}
-	return (-1);
-}
-*/
 int	ft_strlen(char *str)
 {
 	int	i;
